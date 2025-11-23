@@ -1,0 +1,79 @@
+{
+	"info": {
+		"_postman_id": "6cbe20a2-bbd0-4657-b986-3f1d53831015",
+		"name": "Messaging app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "45698672"
+	},
+	"item": [
+		{
+			"name": "http://127.0.0.1:8000/api/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"test2\",\r\n    \"password\": \"testrav42019\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://127.0.0.1:8000/api/token/"
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/api/users/",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ5Mzg1MDM4LCJpYXQiOjE3NDkzODE0MzgsImp0aSI6Ijg2NDU0MzdhYTRjOTRkYTU5ZTM0OGM1N2Q1NTg1ZmM1IiwidXNlcl9pZCI6ImNhMTZlY2M4LTBmNTMtNDY0Yi1hMWM0LTNiMWMyMDc5ZWQ1NyJ9.DYuER6IqSPM8yFvquJDul5Zr42s5XjxUjADxwTlv3vc",
+						"type": "text"
+					}
+				],
+				"url": "http://127.0.0.1:8000/api/users/"
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/api/messages/",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ5Mzg1MDM4LCJpYXQiOjE3NDkzODE0MzgsImp0aSI6Ijg2NDU0MzdhYTRjOTRkYTU5ZTM0OGM1N2Q1NTg1ZmM1IiwidXNlcl9pZCI6ImNhMTZlY2M4LTBmNTMtNDY0Yi1hMWM0LTNiMWMyMDc5ZWQ1NyJ9.DYuER6IqSPM8yFvquJDul5Zr42s5XjxUjADxwTlv3vc",
+						"type": "text"
+					}
+				],
+				"url": "http://127.0.0.1:8000/api/messages/"
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/api/conversations/",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ5Mzg1MDM4LCJpYXQiOjE3NDkzODE0MzgsImp0aSI6Ijg2NDU0MzdhYTRjOTRkYTU5ZTM0OGM1N2Q1NTg1ZmM1IiwidXNlcl9pZCI6ImNhMTZlY2M4LTBmNTMtNDY0Yi1hMWM0LTNiMWMyMDc5ZWQ1NyJ9.DYuER6IqSPM8yFvquJDul5Zr42s5XjxUjADxwTlv3vc",
+						"type": "text"
+					}
+				],
+				"url": "http://127.0.0.1:8000/api/conversations/"
+			},
+			"response": []
+		}
+	]
+}
