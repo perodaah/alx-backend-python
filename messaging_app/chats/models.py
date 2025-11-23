@@ -2,7 +2,6 @@ from django.db import models
 import uuid
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
-from django.conf import settings
 
 # Create your models here.
 
@@ -12,11 +11,12 @@ class User(AbstractUser):
         ('host', 'Host'),
         ('admin', 'Admin'),
     ]
+
     user_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     first_name = models.CharField(max_length=150, null=False)
     last_name = models.CharField(max_length=150, null=False)
     email = models.EmailField(unique=True, null=False)
-    #password_hash = models.CharField(max_length=128, null=False)  # store hashed password
+    password_hash = models.CharField(max_length=128, null=False)  # store hashed password
     phone_number = models.CharField(max_length=20, blank=True, null=True)
     role = models.CharField(max_length=10, choices=USER_ROLES, default='guest', null=False)
     created_at = models.DateTimeField(default=timezone.now)

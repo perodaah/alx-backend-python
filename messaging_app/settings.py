@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'chats',
     "rest_framework_simplejwt",
+    'django_filters',
     'rest_framework_simplejwt.token_blacklist', # if we want token blacklisting (recommended for logout).
 ]
 
@@ -52,6 +53,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'chats.middleware.RequestLoggingMiddleware',
+   
 ]
 
 ROOT_URLCONF = 'messaging_app.urls'
@@ -136,8 +139,12 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.BasicAuthentication",
     ],
     "DEFAULT_FILTER_BACKENDS": [
-        "django_filters.rest_framework.DjangoFilterBackend"
+        "django_filters.rest_framework.DjangoFilterBackend",
+        "rest_framework.filters.OrderingFilter",
+        "rest_framework.filters.SearchFilter",
     ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 20
 }
 # messaging_app/settings.py
 AUTH_USER_MODEL = 'chats.User'

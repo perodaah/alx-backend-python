@@ -71,3 +71,4 @@ class ConversationCreateSerializer(serializers.ModelSerializer):
         conversation = Conversation.objects.create(**validated_data)
         conversation.participants.set(participants)
         return conversation
+
