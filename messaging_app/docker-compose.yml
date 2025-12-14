@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  # --------------------
+  # 1. DB Service: MySQL
+  # --------------------
+  db:
+    image: mysql:8.0
+    container_name: messaging_db_container
+    # Load variables from the .env file
+    env_file:
+      - .env
+    environment:
+      # These variables are required by the MySQL image
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DB: ${MYSQL_DATABASE}
+    volumes:
+      # Persist data outside the container (optional but recommended)
+      - db_data:/var/lib/mysql
+    ports:
+      # Expose port only for debugging/external tools (optional)
+      - "3306:3306"
+    # Wait for the DB to be ready before starting 'web'
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$MYSQL_ROOT_PASSWORD"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # --------------------
+  # 2. WEB Service: Django App
+  # --------------------
+  web:
+    build: .
+    container_name: messaging_web_container
+    # Load variables from the .env file
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    command: python3 manage.py runserver 0.0.0.0:8000
+    # Ensure the web service starts only after the DB is healthy
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      # Mount the local code to see changes immediately (optional, but good for dev)
+      - .:/usr/src/app
+    
+# Define volumes for persistent storage
+volumes:
+  db_data:
