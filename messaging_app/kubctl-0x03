@@ -1,0 +1,36 @@
+#!/bin/bash
+set -euo pipefail
+
+DEPLOY_FILE="blue_deployment.yaml"
+SERVICE="messaging-app"
+NAMESPACE="${NAMESPACE:-default}"
+URL="${URL:-http://messaging-app:8000/}"
+
+echo "Applying deployment update from ${DEPLOY_FILE}..."
+kubectl apply -f "${DEPLOY_FILE}"
+
+echo "Triggering rolling update and monitoring status..."
+kubectl rollout status deployment/messaging-app -n "${NAMESPACE}"
+
+echo "Starting disruption test (curl loop). Press Ctrl+C to stop."
+START_TIME=$(date +%s)
+DISRUPTIONS=0
+for i in $(seq 1 50); do
+  if ! curl -sS --max-time 2 "${URL}" > /dev/null; then
+    echo "Request $i failed"
+    DISRUPTIONS=$((DISRUPTIONS+1))
+  else
+    echo "Request $i ok"
+  fi
+  sleep 0.5
+done
+END_TIME=$(date +%s)
+echo "Disruption count: ${DISRUPTIONS} during $((END_TIME-START_TIME))s test"
+
+echo "Verifying current pods after rollout:"
+kubectl get pods -l app=messaging-app,track=blue -o wide -n "${NAMESPACE}"
+
+echo "Describing Deployment for revision and status:"
+kubectl rollout history deployment/messaging-app -n "${NAMESPACE}"
+kubectl describe deploy messaging-app -n "${NAMESPACE}"
+

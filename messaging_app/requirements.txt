@@ -1,0 +1,15 @@
+# Upgrade Django to match migrations (Django 5.x)
+Django==5.0.6
+
+# Upgrade DRF to be compatible with Django 5
+djangorestframework==3.14.0
+
+# Upgrade django-filter for DRF 3.14
+django-filter==23.5
+
+# JWT auth
+djangorestframework-simplejwt==5.3.1
+
+# Add missing dependencies used in settings and urls
+django-cors-headers==4.4.0
+drf-nested-routers==0.93.5

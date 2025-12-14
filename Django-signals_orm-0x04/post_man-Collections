@@ -1,0 +1,212 @@
+{
+	"info": {
+		"_postman_id": "3fcfc1de-53e1-47c2-8de1-30246c7a56a7",
+		"name": "Messaging API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15113138"
+	},
+	"item": [
+		{
+			"name": "Obtain Token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": [
+					{
+						"username": "admin",
+						"password": "calistus"
+					}
+				]
+			},
+			"response": [
+				{
+					"refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc2MzUzOTQ3NCwiaWF0IjoxNzYzNDUzMDc0LCJqdGkiOiJkZTMxMTk5ZGM4NjM0NjA4YjhkYTQ5ODk0Mzg4MmI0NCIsInVzZXJfaWQiOiJmNzYxYzE3Yy0wZTYzLTQwMTUtYTA1Mi1iYTMzYjljZDU0MDYifQ.5i3guO4JDRtwad-WpAZBVkkNhUbtlyN60NkcLkfT0Uo",
+					"access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzNDU2Njc0LCJpYXQiOjE3NjM0NTMwNzQsImp0aSI6ImU1ZThkYTJlMDk3MzRmNzhhYzBhZGU1ZGI3NThhMzRlIiwidXNlcl9pZCI6ImY3NjFjMTdjLTBlNjMtNDAxNS1hMDUyLWJhMzNiOWNkNTQwNiJ9.gfu1odAm4BeauEoSJ5e6sTrnVsrwFldJp3YW97SQgCE"
+				}
+			]
+		},
+
+		{
+			"name": "Create Message",	
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": [
+					{ 
+						"title": "Chat with Bob", 
+						"participants": ["ceea299b-2bff-4e29-acba-2e0562b62b3c", "f761c17c-0e63-4015-a052-ba33b9cd5406"] 
+					}
+				]
+			},
+			"response": [
+				{
+					"id": "8654a1b2-4b61-49ff-b434-fb78a8ce0dd7",
+					"participants": [
+						"ceea299b-2bff-4e29-acba-2e0562b62b3c",
+						"f761c17c-0e63-4015-a052-ba33b9cd5406"
+					],
+					"participants_detail": [
+						{
+							"id": "ceea299b-2bff-4e29-acba-2e0562b62b3c",
+							"username": "ojiugo",
+							"first_name": "Ojiugu",
+							"last_name": "Igwilo",
+							"email": "ojiugoe@example.com",
+							"phone_number": null,
+							"role": "guest",
+							"created_at": "2025-11-18T08:53:17.029596Z"
+						},
+						{
+							"id": "f761c17c-0e63-4015-a052-ba33b9cd5406",
+							"username": "admin",
+							"first_name": "Ebunilo",
+							"last_name": "Igwilo",
+							"email": "ebunilo@yahoo.com",
+							"phone_number": null,
+							"role": "guest",
+							"created_at": "2025-11-16T12:51:15.970268Z"
+						}
+					],
+					"created_at": "2025-11-18T09:50:09.255290Z",
+					"messages": [],
+					"message_count": 0,
+					"last_message": null
+				}
+			]
+		},
+
+		{
+			"name": "Refresh Token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": [
+					{
+						"refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTc2MzUzOTQ3NCwiaWF0IjoxNzYzNDUzMDc0LCJqdGkiOiJkZTMxMTk5ZGM4NjM0NjA4YjhkYTQ5ODk0Mzg4MmI0NCIsInVzZXJfaWQiOiJmNzYxYzE3Yy0wZTYzLTQwMTUtYTA1Mi1iYTMzYjljZDU0MDYifQ.5i3guO4JDRtwad-WpAZBVkkNhUbtlyN60NkcLkfT0Uo"
+					}
+				]
+			},
+			"response": [
+				{
+					"access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzNDYyNDg4LCJpYXQiOjE3NjM0NTg4ODgsImp0aSI6IjIxNDQzOGZlMzEwMDQzMzVhNTkzYTRjYTYyNDAyYWE1IiwidXNlcl9pZCI6ImY3NjFjMTdjLTBlNjMtNDAxNS1hMDUyLWJhMzNiOWNkNTQwNiJ9.mqiRGFvmpNPPNjskdoWeLb4QztE1J1Kt3IZYnUWPgR4"
+				}
+			]
+		},
+
+		{
+			"name": "Send Message",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": [
+					{
+						"message_body": "Hello Ojiugo!"
+					}
+				]
+			},
+			"response": [
+				{
+					"id": "090ffc09-2a04-4861-aa72-6b24da88fe32",
+					"sender": "f761c17c-0e63-4015-a052-ba33b9cd5406",
+					"sender_detail": {
+						"id": "f761c17c-0e63-4015-a052-ba33b9cd5406",
+						"username": "admin",
+						"first_name": "Ebunilo",
+						"last_name": "Igwilo",
+						"email": "ebunilo@yahoo.com",
+						"phone_number": null,
+						"role": "guest",
+						"created_at": "2025-11-16T12:51:15.970268Z"
+					},
+					"conversation": "8654a1b2-4b61-49ff-b434-fb78a8ce0dd7",
+					"message_body": "Hello Ojiugo!",
+					"sent_at": "2025-11-18T10:11:14.351750Z"
+				}
+			]
+		},
+
+		{
+			"name": "List Conversations - Owner only",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": [
+				{
+					"count": 1,
+					"next": null,
+					"previous": null,
+					"results": [
+						{
+							"id": "8654a1b2-4b61-49ff-b434-fb78a8ce0dd7",
+							"participants": [
+								"ceea299b-2bff-4e29-acba-2e0562b62b3c",
+								"f761c17c-0e63-4015-a052-ba33b9cd5406"
+							],
+							"participants_detail": [
+								{
+									"id": "ceea299b-2bff-4e29-acba-2e0562b62b3c",
+									"username": "ojiugo",
+									"first_name": "Ojiugu",
+									"last_name": "Igwilo",
+									"email": "ojiugoe@example.com",
+									"phone_number": null,
+									"role": "guest",
+									"created_at": "2025-11-18T08:53:17.029596Z"
+								},
+								{
+									"id": "f761c17c-0e63-4015-a052-ba33b9cd5406",
+									"username": "admin",
+									"first_name": "Ebunilo",
+									"last_name": "Igwilo",
+									"email": "ebunilo@yahoo.com",
+									"phone_number": null,
+									"role": "guest",
+									"created_at": "2025-11-16T12:51:15.970268Z"
+								}
+							],
+							"created_at": "2025-11-18T09:50:09.255290Z",
+							"messages": [
+								{
+									"id": "090ffc09-2a04-4861-aa72-6b24da88fe32",
+									"sender": "f761c17c-0e63-4015-a052-ba33b9cd5406",
+									"sender_detail": {
+										"id": "f761c17c-0e63-4015-a052-ba33b9cd5406",
+										"username": "admin",
+										"first_name": "Ebunilo",
+										"last_name": "Igwilo",
+										"email": "ebunilo@yahoo.com",
+										"phone_number": null,
+										"role": "guest",
+										"created_at": "2025-11-16T12:51:15.970268Z"
+									},
+									"conversation": "8654a1b2-4b61-49ff-b434-fb78a8ce0dd7",
+									"message_body": "Hello Ojiugo!",
+									"sent_at": "2025-11-18T10:11:14.351750Z"
+								}
+							],
+							"message_count": 1,
+							"last_message": {
+								"id": "090ffc09-2a04-4861-aa72-6b24da88fe32",
+								"sender": "f761c17c-0e63-4015-a052-ba33b9cd5406",
+								"sender_detail": {
+									"id": "f761c17c-0e63-4015-a052-ba33b9cd5406",
+									"username": "admin",
+									"first_name": "Ebunilo",
+									"last_name": "Igwilo",
+									"email": "ebunilo@yahoo.com",
+									"phone_number": null,
+									"role": "guest",
+									"created_at": "2025-11-16T12:51:15.970268Z"
+								},
+								"conversation": "8654a1b2-4b61-49ff-b434-fb78a8ce0dd7",
+								"message_body": "Hello Ojiugo!",
+								"sent_at": "2025-11-18T10:11:14.351750Z"
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

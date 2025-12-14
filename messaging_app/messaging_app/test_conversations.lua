@@ -1,0 +1,3 @@
+-- Set Authorization header with JWT token
+wrk.headers["Authorization"] = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzY1NTE3NzM1LCJpYXQiOjE3NjU1MTQxMzUsImp0aSI6IjI1NWI2NmU5MTk4NDQwMjZhMzVlZGNlZmMwYjA1OGI5IiwidXNlcl9pZCI6ImY3NjFjMTdjLTBlNjMtNDAxNS1hMDUyLWJhMzNiOWNkNTQwNiJ9.plIhmiI9xCAFPRPi-iTHktDEs7W6AL1wWLg7gZSfrKM"
+wrk.headers["Content-Type"] = "application/json"

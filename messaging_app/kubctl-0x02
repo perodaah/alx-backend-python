@@ -1,0 +1,29 @@
+#!/bin/bash
+set -euo pipefail
+
+# Deploy blue, green, and services
+kubectl apply -f blue_deployment.yaml
+kubectl apply -f green_deployment.yaml
+kubectl apply -f kubeservice.yaml
+
+# Scale green up for canary/gradual traffic (adjust replicas as needed)
+kubectl scale deployment messaging-app-green --replicas=1
+
+# Wait for green pods to be ready
+kubectl rollout status deployment/messaging-app-green
+
+# Check logs of green pods for errors
+GREEN_PODS=$(kubectl get pods -l app=messaging-app,track=green -o jsonpath='{.items[*].metadata.name}')
+for p in $GREEN_PODS; do
+  echo "---- Logs for $p ----"
+  kubectl logs "$p" || true
+done
+
+# Optional: Gradually shift traffic by adjusting replicas
+# Increase green, decrease blue:
+# kubectl scale deployment messaging-app-green --replicas=2
+# kubectl scale deployment messaging-app --replicas=0
+
+# Roll back to blue if needed:
+# kubectl scale deployment messaging-app-green --replicas=0
+# kubectl scale deployment messaging-app --replicas=1

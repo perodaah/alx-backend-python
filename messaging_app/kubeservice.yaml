@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: messaging-app
+  labels:
+    app: messaging-app
+spec:
+  type: ClusterIP
+  selector:
+    app: messaging-app
+  ports:
+    - name: http
+      port: 8000
+      targetPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: messaging-app-blue
+  labels:
+    app: messaging-app
+    track: blue
+spec:
+  type: ClusterIP
+  selector:
+    app: messaging-app
+    track: blue
+  ports:
+    - name: http
+      port: 8000
+      targetPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: messaging-app-green
+  labels:
+    app: messaging-app
+    track: green
+spec:
+  type: ClusterIP
+  selector:
+    app: messaging-app
+    track: green
+  ports:
+    - name: http
+      port: 8000
+      targetPort: 8000

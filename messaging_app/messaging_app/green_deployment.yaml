@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: messaging-app-green
+  labels:
+    app: messaging-app
+    track: green
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: messaging-app
+      track: green
+  template:
+    metadata:
+      labels:
+        app: messaging-app
+        track: green
+    spec:
+      containers:
+        - name: messaging-app
+          image: icalistus/messaging-app:v2
+          imagePullPolicy: Always
+          command: ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DJANGO_SETTINGS_MODULE
+              value: messaging_app.settings
+            - name: DEBUG
+              value: "true"
+          livenessProbe:
+            tcpSocket:
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          readinessProbe:
+            tcpSocket:
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
