@@ -1,0 +1,90 @@
+name: Django CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: messaging_test
+          MYSQL_USER: django
+          MYSQL_PASSWORD: django
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -proot"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install system packages for MySQL client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential pkg-config libmysqlclient-dev
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt || pip install -r messaging_app/requirements.txt
+          pip install mysqlclient flake8 coverage
+
+      - name: Wait for MySQL to be ready
+        run: |
+          for i in {1..30}; do
+            if mysqladmin ping -h 127.0.0.1 -uroot -proot --silent; then
+              echo "MySQL is up"; break
+            fi
+            sleep 2
+          done
+
+      - name: Lint with flake8
+        run: |
+          flake8 . --count --show-source --statistics
+
+      - name: Run tests with coverage
+        env:
+          DB_ENGINE: django.db.backends.mysql
+          DB_NAME: messaging_test
+          DB_USER: django
+          DB_PASSWORD: django
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+        run: |
+          coverage run --source=chats,messaging_app manage.py test --verbosity 2
+          coverage report -m
+
+      - name: Generate coverage reports
+        run: |
+          coverage xml -o coverage.xml
+          coverage html -d htmlcov
+
+      - name: Upload coverage XML
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-xml
+          path: coverage.xml
+
+      - name: Upload coverage HTML
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-html
+          path: htmlcov
